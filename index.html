@@ -4,14 +4,20 @@
     <title>
         Performance Bible
     </title>
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
     <h1>Performance Bible</h1>
     <div class='main_section'>
-        HyperVisor : <select id=hyper-select name=hypervisor>
-            <option value='hyper1' selected>vSphere 6.0</option>
-            <option value='hyper2'>vSphere 5.5</option>
-        </select>
+        <div class='select_section'>
+            HyperVisor : <select id=hyper-select name=hypervisor>
+                <option value='hyper1' selected>vSphere 6.0</option>
+                <option value='hyper2'>vSphere 5.5</option>
+            </select>
+        </div>
+        <div class='vsphere60' visible>
+            This is vsphere60 data
+        </div>
     </div>
     <script>
 
