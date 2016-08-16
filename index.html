@@ -18,9 +18,10 @@
     </p>
     <div class='main_section'>
         <div class='select_section'>
-            HyperVisor : <select id=hyperselect name=hypervisor>
+            Platform : <select id=hyperselect name=hypervisor>
                 <option value='vsphere60' selected>vSphere 6.0</option>
                 <option value='vsphere55'>vSphere 5.5</option>
+                <option value='centos'>Centos Linux</option>
             </select> <br>
             Sections :  <select id=areaselect name=areas>
                 <option value='hardware'>Hardware Performance Optimizations</option>
@@ -39,14 +40,18 @@
                         <th>Recommended value</th>
                     </tr>
                     <tr>
-                        <td>Net.TcpipHeapMax</td>
-                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
-                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
-                        <td>1536</td>
+                        <td>Intel VT-x or AMD-V</td>
+                        <td>Hardware assisted CPU virtualization assistance</td>
+                        <td>Reboot host, Enter BIOS, Enable VT-x or AMD-V</td>
+                        <td>Enable</td>
                     </tr>
                     <tr>
+
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 hardware content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
             </div>
             <div id=vsphere60storage>
                 <table class=table60 id=table60storage>
@@ -62,9 +67,18 @@
                         <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
                         <td>1536</td>
                     </tr>
+                        <td>FC HBA Queue Depth</td>
+                        <td>Increase the Max Queue Depth on the HBA to handle more IO</td>
+                        <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qla2xxx;
+                        Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc820;
+                        Brocade: esxcli system module parameters set -p bfa_lun_queue_depth=128 -m bfa;</td>
+                        <td>128</td>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 storage content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
             </div>
             <div id=vsphere60network>
                 <table class=table60 id=table60network>
@@ -81,8 +95,11 @@
                         <td>1536</td>
                     </tr>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 network content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
             </div>
             <div id=vsphere60general>
                 <table class=table60 id=table60general>
@@ -99,8 +116,11 @@
                         <td>1536</td>
                     </tr>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 general content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
             </div>
         </div>
         <div class='vsphere55' id=hyper2>
@@ -113,12 +133,13 @@
                         <th>Recommended value</th>
                     </tr>
                     <tr>
-                        <td>Net.TcpipHeapMax</td>
-                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
-                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 512</td>
-                        <td>512</td>
+                        <td>Intel VT-x or AMD-V</td>
+                        <td>Hardware assisted CPU virtualization assistance</td>
+                        <td>Reboot host, Enter BIOS, Enable VT-x or AMD-V</td>
+                        <td>Enable</td>
                     </tr>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 hardware content -->
             </div>
@@ -137,8 +158,15 @@
                         <td>512</td>
                     </tr>
                     <tr>
+                        <td>FC HBA Queue Depth</td>
+                        <td>Increase the Max Queue Depth on the HBA to handle more IO</td>
+                        <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qlnativefc;
+                        Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc;</td>
+                        <td>128</td>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 storage content -->
+                Sources:
             </div>
             <div id=vsphere55network>
                 <table class=table55 id=table55network>
@@ -155,6 +183,7 @@
                         <td></td>
                     </tr>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 network content -->
             </div>
@@ -173,15 +202,107 @@
                         <td></td>
                     </tr>
                     <tr>
+                    </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 general content -->
+            </div>
+        </div>
+        <div class='centos' id=hyper3>
+            <div id=centoshardware>
+                <table class=table60 id=table60hardware>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Intel VT-x or AMD-V</td>
+                        <td>Hardware assisted CPU virtualization assistance</td>
+                        <td>Reboot host, Enter BIOS, Enable VT-x or AMD-V</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </table>
+                <!-- ToDo, add vsphere 60 hardware content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
+            </div>
+            <div id=centosstorage>
+                <table class=tablecentos id=tablecentosstorage>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Net.TcpipHeapMax</td>
+                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
+                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
+                        <td>1536</td>
+                    </tr>
+                        <td>FC HBA Queue Depth</td>
+                        <td>Increase the Max Queue Depth on the HBA to handle more IO</td>
+                        <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qla2xxx;
+                        Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc820;
+                        Brocade: esxcli system module parameters set -p bfa_lun_queue_depth=128 -m bfa;</td>
+                        <td>128</td>
+                    <tr>
+                    </tr>
+                </table>
+                <!-- ToDo, add vsphere 60 storage content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
+            </div>
+            <div id=centosnetwork>
+                <table class=tablecentos id=tablecentosnetwork>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Net.TcpipHeapMax</td>
+                        <td></td>
+                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
+                        <td>1536</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+                <!-- ToDo, add vsphere 60 network content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
+            </div>
+            <div id=centosgeneral>
+                <table class=tablecentos id=tablecentosgeneral>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Net.TcpipHeapMax</td>
+                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
+                        <td></td>
+                        <td>1536</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+                <!-- ToDo, add vsphere 60 general content -->
+                Sources:
+                <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
             </div>
         </div>
     </div>
     <script>
     function selectArea(areas, platform){
-        // document.getElementsByClassName('vsphere55')[0].style.display = 'none';
-        // document.getElementsByClassName('vsphere60')[0].style.display = "none";
         document.getElementById('vsphere60storage').style.display = 'none';
         document.getElementById('vsphere60network').style.display = 'none';
         document.getElementById('vsphere60general').style.display = 'none';
@@ -190,6 +311,10 @@
         document.getElementById('vsphere55network').style.display = 'none';
         document.getElementById('vsphere55general').style.display = 'none';
         document.getElementById('vsphere55hardware').style.display = 'none';
+        document.getElementById('centosstorage').style.display = 'none';
+        document.getElementById('centosnetwork').style.display = 'none';
+        document.getElementById('centosgeneral').style.display = 'none';
+        document.getElementById('centoshardware').style.display = 'none';
         if (platform == 'vsphere60'){
             if (areas == 'storage'){
                 document.getElementById('vsphere60storage').style.display = 'block';
@@ -216,6 +341,20 @@
             }
             else if (areas == 'hardware'){
                 document.getElementById('vsphere55hardware').style.display = 'block';
+            }
+        }
+        else if (platform == 'centos'){
+            if (areas == 'storage'){
+                document.getElementById('centosstorage').style.display = 'block';
+            }
+            else if (areas == 'network'){
+                document.getElementById('centosnetwork').style.display = 'block';
+            }
+            else if (areas == 'general'){
+                document.getElementById('centosgeneral').style.display = 'block';
+            }
+            else if (areas == 'hardware'){
+                document.getElementById('centoshardware').style.display = 'block';
             }
         }
     }

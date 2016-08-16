@@ -22,6 +22,18 @@
 #vsphere60hardware {
     display:none;
 }
+#centosgeneral {
+    display:none;
+}
+#centosstorage {
+    display:none;
+}
+#centoshardware {
+    display:none;
+}
+#centosnetwork {
+    display:none;
+}
 .table60 {
     width:100%;
     border:1px solid black;
