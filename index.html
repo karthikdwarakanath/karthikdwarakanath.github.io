@@ -482,20 +482,21 @@
                         <th>Recommended value</th>
                     </tr>
                     <tr>
-                        <td>Net.TcpipHeapMax</td>
-                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
-                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
-                        <td>1536</td>
+                        <td>
+                            Increase Block Device Queue Depth
+                        </td>
+                        <td>
+                            Increase device queue depth if there is a lot of queueing
+                        </td>
+                        <td>
+                            echo 256 > /sys/block/sdX/queue/nr_requests
+                            echo 128 > /sys/block/sdY/device/queue_depth
+                        </td>
+                        <td>
+                            128
+                        </td>
                     </tr>
-                        <td>FC HBA Queue Depth</td>
-                        <td>Increase the Max Queue Depth on the HBA to handle more IO</td>
-                        <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qla2xxx;
-                        Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc820;
-                        Brocade: esxcli system module parameters set -p bfa_lun_queue_depth=128 -m bfa;</td>
-                        <td>128</td>
-                    <tr>
-                    </tr>
-                </table>
+                    </table>
                 <!-- ToDo, add vsphere 60 storage content -->
                 Sources:
                 <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmware-perfbest-practices-vsphere6-0-white-paper.pdf">vSphere 6.0 Performance Best Practice Guide</a>
