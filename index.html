@@ -46,7 +46,34 @@
                         <td>Enable</td>
                     </tr>
                     <tr>
-
+                        <td>Hyper Threading</td>
+                        <td>Allows single processor to behave like two logical processors. Can run two independent threads simultaneously</td>
+                        <td>Reboot host, Enter BIOS, Enable HT</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>Turbo Boost</td>
+                        <td></td>
+                        <td>Reboot host, Enter BIOS, Enable Turbo Boost</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>NUMA</td>
+                        <td>Non Uniform Memory Access</td>
+                        <td>Reboot host, Enter BIOS, Enable NUMA</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>Power Management</td>
+                        <td>vSphere has power management built in. Change the BIOS to set the power management to OS Controlled to take advantage of vSphere power management. Advantage is that it can be easily configured in command line</td>
+                        <td>Reboot host, Enter BIOS, Select power management -> OS Controlled</td>
+                        <td>OS Controlled</td>
+                    </tr>
+                    <tr>
+                        <td>C States</td>
+                        <td>vSphere power management has c states control built in. Enable all c states in BIOS to be able to control them using vSphere</td>
+                        <td>Reboot host, Enter BIOS, Enable C States</td>
+                        <td>Enable</td>
                     </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 hardware content -->
@@ -67,13 +94,19 @@
                         <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
                         <td>1536</td>
                     </tr>
+                    <tr>
                         <td>FC HBA Queue Depth</td>
                         <td>Increase the Max Queue Depth on the HBA to handle more IO</td>
                         <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qla2xxx;
                         Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc820;
                         Brocade: esxcli system module parameters set -p bfa_lun_queue_depth=128 -m bfa;</td>
                         <td>128</td>
+                    </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 storage content -->
