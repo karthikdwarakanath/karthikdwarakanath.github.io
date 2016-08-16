@@ -103,10 +103,69 @@
                         <td>128</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Partition Alignment</td>
+                        <td>VMFS partition alignment makes a difference in performance</td>
+                        <td>Use vSphere Client to create a vmfs partition. If using CLI, create partition using storage vendor recommendation. If no recommendation is present, use starting block address that is a multiple of 8KB</td>
+                        <td>Align Partition</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SIOC
+                        </td>
+                        <td>
+                            Enables datastore resource sharing among VMS. Can be benefitial when there are many VMs sharing a single datastore.
+                        </td>
+                        <td>
+                            vSphere Client -> Datastore -> Configuration -> Properties -> SIOC -> Enable
+                        </td>
+                        <td>
+                            Enable when VM / datastore ratio is high
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Jumbo Frames
+                        </td>
+                        <td>
+                            MTU > 1500 is Jumbo. Enable Jumbo Frames to reduce CPU processing overhead with iSCSI (SW/HW). End to end support and enabling is required. On vSphere, Enable Jumbo Frames in virtual switches (SWiSCSI) and storage adapter (HWiSCSI)
+                        </td>
+                        <td>
+                            Manage -> Networking -> Virtual Switches -> Settings -> Properties -> MTU;
+                            Manage -> Storage -> Storage Adapters -> Advanced Options -> Edit -> MTU
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            VLAN
+                        </td>
+                        <td>
+                            Create VLAN for vmknic and iSCSI/NFS Server. Having separate VLAN helps reduce network interference
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            Create VLAN
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Keep VMs/LUNs ratio low
+                        </td>
+                        <td>
+                            Provisioning more LUNs and keeping the VMs on these LUNs low helps present I/Os simultaneously to the array increasing performance. Use ESXTOP to monitor Device latencies and provision accordingly.
+                        </td>
+                        <td>
+                            Follow storage vendor recommendations
+                        </td>
+                        <td>
+                            Provision more LUNs for spreading the I/O load.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
                     </tr>
                 </table>
                 <!-- ToDo, add vsphere 60 storage content -->
@@ -143,10 +202,10 @@
                         <th>Recommended value</th>
                     </tr>
                     <tr>
-                        <td>Net.TcpipHeapMax</td>
-                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
-                        <td></td>
-                        <td>1536</td>
+                        <td>vSphere Power Management</td>
+                        <td>Set this to high performance setting to get max hardware performance. Pre-Requisite is BIOS - OS Control Mode</td>
+                        <td>vsish -e set /power/currentPolicy 1</td>
+                        <td>1</td>
                     </tr>
                     <tr>
                     </tr>
@@ -172,6 +231,34 @@
                         <td>Enable</td>
                     </tr>
                     <tr>
+                        <td>Hyper Threading</td>
+                        <td>Allows single processor to behave like two logical processors. Can run two independent threads simultaneously</td>
+                        <td>Reboot host, Enter BIOS, Enable HT</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>Turbo Boost</td>
+                        <td></td>
+                        <td>Reboot host, Enter BIOS, Enable Turbo Boost</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>NUMA</td>
+                        <td>Non Uniform Memory Access</td>
+                        <td>Reboot host, Enter BIOS, Enable NUMA</td>
+                        <td>Enable</td>
+                    </tr>
+                    <tr>
+                        <td>Power Management</td>
+                        <td>vSphere has power management built in. Change the BIOS to set the power management to OS Controlled to take advantage of vSphere power management. Advantage is that it can be easily configured in command line</td>
+                        <td>Reboot host, Enter BIOS, Select power management -> OS Controlled</td>
+                        <td>OS Controlled</td>
+                    </tr>
+                    <tr>
+                        <td>C States</td>
+                        <td>vSphere power management has c states control built in. Enable all c states in BIOS to be able to control them using vSphere</td>
+                        <td>Reboot host, Enter BIOS, Enable C States</td>
+                        <td>Enable</td>
                     </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 hardware content -->
