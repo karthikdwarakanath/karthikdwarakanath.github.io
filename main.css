@@ -1,6 +1,18 @@
-.hidden>div{
-    display:none
+#vsphere55storage {
+    display:none;
 }
-.visible>div{
-    display:block
+#vsphere60storage {
+    display:none;
+}
+#vsphere55network {
+    display:none;
+}
+#vsphere60network {
+    display:none;
+}
+#vsphere55general {
+    display:none;
+}
+#vsphere60general {
+    display:none;
 }

@@ -10,17 +10,72 @@
     <h1>Performance Bible</h1>
     <div class='main_section'>
         <div class='select_section'>
-            HyperVisor : <select id=hyper-select name=hypervisor>
-                <option value='hyper1' selected>vSphere 6.0</option>
-                <option value='hyper2'>vSphere 5.5</option>
-            </select>
+            HyperVisor : <select id=hyperselect name=hypervisor>
+                <option value='vsphere60' selected>vSphere 6.0</option>
+                <option value='vsphere55'>vSphere 5.5</option>
+            </select> <br>
+            Sections :  <select id=areaselect name=areas>
+                <option value='storage' selected>Storage Performance Optimizations</option>
+                <option value='network'>Network Performance Optimizations</option>
+                <option value='general'>General Performance Optimizations</option></select>
+                <button type="button" onclick="selectArea(areaselect.value, hyperselect.value)">Go</button>
         </div>
-        <div class='vsphere60' visible>
-            This is vsphere60 data
+        <div class='vsphere60' id=hyper1>
+            <div id=vsphere60storage>
+                vsphere60 storage
+            </div>
+            <div id=vsphere60network>
+                vsphere60 network
+            </div>
+            <div id=vsphere60general>
+                vsphere60 general
+            </div>
+        </div>
+        <div class='vsphere55' id=hyper2>
+            <div id=vsphere55storage>
+                vsphere55 storage
+            </div>
+            <div id=vsphere55network>
+                vsphere55 network
+            </div>
+            <div id=vsphere55general>
+                vsphere55 general
+            </div>
         </div>
     </div>
     <script>
-
+    function selectArea(areas, platform){
+        // document.getElementsByClassName('vsphere55')[0].style.display = 'none';
+        // document.getElementsByClassName('vsphere60')[0].style.display = "none";
+        document.getElementById('vsphere60storage').style.display = 'none';
+        document.getElementById('vsphere60network').style.display = 'none';
+        document.getElementById('vsphere60general').style.display = 'none';
+        document.getElementById('vsphere55storage').style.display = 'none';
+        document.getElementById('vsphere55network').style.display = 'none';
+        document.getElementById('vsphere55general').style.display = 'none';
+        if (platform == 'vsphere60'){
+            if (areas == 'storage'){
+                document.getElementById('vsphere60storage').style.display = 'block';
+            }
+            else if (areas == 'network'){
+                document.getElementById('vsphere60network').style.display = 'block';
+            }
+            else if (areas == 'general'){
+                document.getElementById('vsphere60general').style.display = 'block';
+            }
+        }
+        else if (platform == 'vsphere55'){
+            if (areas == 'storage'){
+                document.getElementById('vsphere55storage').style.display = 'block';
+            }
+            else if (areas == 'network'){
+                document.getElementById('vsphere55network').style.display = 'block';
+            }
+            else if (areas == 'general'){
+                document.getElementById('vsphere55general').style.display = 'block';
+            }
+        }
+    }
     </script>
 </body>
 </html>
