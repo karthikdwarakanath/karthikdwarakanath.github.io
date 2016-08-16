@@ -16,9 +16,29 @@
 #vsphere60general {
     display:none;
 }
+#vsphere55hardware {
+    display:none;
+}
+#vsphere60hardware {
+    display:none;
+}
 .table60 {
     width:100%;
+    border:1px solid black;
 }
 .table55 {
     width:100%;
+    border:1px solid black;
+}
+td, th {
+    border:1px solid black;
+}
+h1 {
+    text-align:center;
+}
+#mainpara {
+    text-align: center;
+}
+.select_section {
+    text-align: center;
 }

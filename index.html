@@ -8,6 +8,14 @@
 </head>
 <body>
     <h1>Performance Bible</h1>
+    <p id=mainpara>Over the course of my career, I have scoured over many blog
+        posts, forums and best practice guides to find ways to optimize
+        performance of an OS or hypervisor. This is an effort to collect all of
+        this in one place. Hopefully it is useful. I have tried to provide the
+        reference source of every optimization. <br>
+        Choose the platform and area of interest to look at
+        recommended performance optimization options. <br>
+    </p>
     <div class='main_section'>
         <div class='select_section'>
             HyperVisor : <select id=hyperselect name=hypervisor>
@@ -15,12 +23,31 @@
                 <option value='vsphere55'>vSphere 5.5</option>
             </select> <br>
             Sections :  <select id=areaselect name=areas>
-                <option value='storage' selected>Storage Performance Optimizations</option>
+                <option value='hardware'>Hardware Performance Optimizations</option>
+                <option value='storage'>Storage Performance Optimizations</option>
                 <option value='network'>Network Performance Optimizations</option>
-                <option value='general'>General Performance Optimizations</option></select>
+                <option value='general' selected>General Performance Optimizations</option></select>
                 <button type="button" onclick="selectArea(areaselect.value, hyperselect.value)">Go</button>
         </div>
         <div class='vsphere60' id=hyper1>
+            <div id=vsphere60hardware>
+                <table class=table60 id=table60hardware>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Net.TcpipHeapMax</td>
+                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
+                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 1536</td>
+                        <td>1536</td>
+                    </tr>
+                    <tr>
+                </table>
+                <!-- ToDo, add vsphere 60 hardware content -->
+            </div>
             <div id=vsphere60storage>
                 <table class=table60 id=table60storage>
                     <tr>
@@ -77,6 +104,24 @@
             </div>
         </div>
         <div class='vsphere55' id=hyper2>
+            <div id=vsphere55hardware>
+                <table class=table55 id=table55hardware>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                        <th>How to set</th>
+                        <th>Recommended value</th>
+                    </tr>
+                    <tr>
+                        <td>Net.TcpipHeapMax</td>
+                        <td>Max heap that can be used for TCP IP. Benefits when number of NFS luns is high. Size in MB</td>
+                        <td>esxcfg-advcfg /Net/TcpipHeapMax -s 512</td>
+                        <td>512</td>
+                    </tr>
+                    <tr>
+                </table>
+                <!-- ToDo, add vsphere 55 hardware content -->
+            </div>
             <div id=vsphere55storage>
                 <table class=table55 id=table55storage>
                     <tr>
@@ -140,9 +185,11 @@
         document.getElementById('vsphere60storage').style.display = 'none';
         document.getElementById('vsphere60network').style.display = 'none';
         document.getElementById('vsphere60general').style.display = 'none';
+        document.getElementById('vsphere60hardware').style.display = 'none';
         document.getElementById('vsphere55storage').style.display = 'none';
         document.getElementById('vsphere55network').style.display = 'none';
         document.getElementById('vsphere55general').style.display = 'none';
+        document.getElementById('vsphere55hardware').style.display = 'none';
         if (platform == 'vsphere60'){
             if (areas == 'storage'){
                 document.getElementById('vsphere60storage').style.display = 'block';
@@ -152,6 +199,9 @@
             }
             else if (areas == 'general'){
                 document.getElementById('vsphere60general').style.display = 'block';
+            }
+            else if (areas == 'hardware'){
+                document.getElementById('vsphere60hardware').style.display = 'block';
             }
         }
         else if (platform == 'vsphere55'){
@@ -163,6 +213,9 @@
             }
             else if (areas == 'general'){
                 document.getElementById('vsphere55general').style.display = 'block';
+            }
+            else if (areas == 'hardware'){
+                document.getElementById('vsphere55hardware').style.display = 'block';
             }
         }
     }
