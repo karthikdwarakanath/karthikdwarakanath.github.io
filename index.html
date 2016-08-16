@@ -133,6 +133,9 @@
                             Manage -> Networking -> Virtual Switches -> Settings -> Properties -> MTU;
                             Manage -> Storage -> Storage Adapters -> Advanced Options -> Edit -> MTU
                         </td>
+                        <td>
+                            Enable Jumbo Frames End to End
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -164,7 +167,33 @@
                     </tr>
                     <tr>
                         <td>
-                            
+                            Use ESXTOP
+                        </td>
+                        <td>
+                            esxtop can be used to troubleshoot storage performance problems. It provides a starting point to root cause a storage performance issue
+                        </td>
+                        <td>
+                            Use vSphere kb article No 1008205
+                            Use Yellow Bricks ESXTOP article <a href='http://www.yellow-bricks.com/esxtop/'>Yellow Bricks</a>
+                        </td>
+                        <td>
+                            Use esxtop for troubleshooting storage issues
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            vHBA reqCallThreshold
+                        </td>
+                        <td>
+                            If using LSILogic vHBA or PVSCSI vHBA for VMs, you can set a lower threshold value. If set to 1, even if there is 1 I/O in the vHBA layer, it will be dispatched to the lower layer
+                        </td>
+                        <td>
+                            esxcfg-advcfg -s X /Disk/ReqCallThreshold
+                            You can also set this in a vmx file using the following command
+                            scsiY.reqCallThreshold = X (where Y is the target SCSI number and X is the desired reqCallThreshold value
+                        </td>
+                        <td>
+                            Lower the reqCallThreshold for latency sensitive applications
                         </td>
                     </tr>
                 </table>
@@ -283,6 +312,100 @@
                         <td>QLogic: esxcli system module parameters set -p ql2xmaxqdepth=128 -m qlnativefc;
                         Emulex: esxcli system module parameters set -p lpfc0_lun_queue_depth=128 -m lpfc;</td>
                         <td>128</td>
+                    </tr>
+                    <tr>
+                        <td>Partition Alignment</td>
+                        <td>VMFS partition alignment makes a difference in performance</td>
+                        <td>Use vSphere Client to create a vmfs partition. If using CLI, create partition using storage vendor recommendation. If no recommendation is present, use starting block address that is a multiple of 8KB</td>
+                        <td>Align Partition</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SIOC
+                        </td>
+                        <td>
+                            Enables datastore resource sharing among VMS. Can be benefitial when there are many VMs sharing a single datastore.
+                        </td>
+                        <td>
+                            vSphere Client -> Datastore -> Configuration -> Properties -> SIOC -> Enable
+                        </td>
+                        <td>
+                            Enable when VM / datastore ratio is high
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Jumbo Frames
+                        </td>
+                        <td>
+                            MTU > 1500 is Jumbo. Enable Jumbo Frames to reduce CPU processing overhead with iSCSI (SW/HW). End to end support and enabling is required. On vSphere, Enable Jumbo Frames in virtual switches (SWiSCSI) and storage adapter (HWiSCSI)
+                        </td>
+                        <td>
+                            Manage -> Networking -> Virtual Switches -> Settings -> Properties -> MTU;
+                            Manage -> Storage -> Storage Adapters -> Advanced Options -> Edit -> MTU
+                        </td>
+                        <td>
+                            Enable Jumbo Frames End to End
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            VLAN
+                        </td>
+                        <td>
+                            Create VLAN for vmknic and iSCSI/NFS Server. Having separate VLAN helps reduce network interference
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            Create VLAN
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Keep VMs/LUNs ratio low
+                        </td>
+                        <td>
+                            Provisioning more LUNs and keeping the VMs on these LUNs low helps present I/Os simultaneously to the array increasing performance. Use ESXTOP to monitor Device latencies and provision accordingly.
+                        </td>
+                        <td>
+                            Follow storage vendor recommendations
+                        </td>
+                        <td>
+                            Provision more LUNs for spreading the I/O load.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Use ESXTOP
+                        </td>
+                        <td>
+                            esxtop can be used to troubleshoot storage performance problems. It provides a starting point to root cause a storage performance issue
+                        </td>
+                        <td>
+                            Use vSphere kb article No 1008205
+                            Use Yellow Bricks ESXTOP article <a href='http://www.yellow-bricks.com/esxtop/'>Yellow Bricks</a>
+                        </td>
+                        <td>
+                            Use esxtop for troubleshooting storage issues
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            vHBA reqCallThreshold
+                        </td>
+                        <td>
+                            If using LSILogic vHBA or PVSCSI vHBA for VMs, you can set a lower threshold value. If set to 1, even if there is 1 I/O in the vHBA layer, it will be dispatched to the lower layer
+                        </td>
+                        <td>
+                            esxcfg-advcfg -s X /Disk/ReqCallThreshold
+                            You can also set this in a vmx file using the following command
+                            scsiY.reqCallThreshold = X (where Y is the target SCSI number and X is the desired reqCallThreshold value
+                        </td>
+                        <td>
+                            Lower the reqCallThreshold for latency sensitive applications
+                        </td>
                     </tr>
                 </table>
                 <!-- ToDo, add vsphere 55 storage content -->
